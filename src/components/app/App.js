@@ -33,7 +33,7 @@ function App() {
           
         </Navbar>
       </header>
-      <div className="opaque" style={{ width: "100vh", height: "100vh" }}>
+      <div className="map-wrapper" >
        <Map googleMapURL={mapConfig.url} loadingElement={mapConfig.elem} containerElement={mapConfig.elem} mapElement={mapConfig.elem} >   
        </Map>  
      </div>

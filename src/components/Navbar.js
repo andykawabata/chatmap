@@ -3,7 +3,7 @@ import  React, { useState, useEffect} from 'react';
 export default function Navbar({children}){
 
     const styles = {
-        maxWidth: '600px',
+        maxWidth: '900px',
         margin: 'auto'
 
     }

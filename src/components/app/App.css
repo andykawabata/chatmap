@@ -1,3 +1,11 @@
-.opaque{
-    opacity: .3;
+.App .map-wrapper{
+    opacity: .5;
+    flex-grow: 1;
 }
+
+.App{
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
