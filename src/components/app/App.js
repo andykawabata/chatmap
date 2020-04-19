@@ -26,9 +26,7 @@ function App() {
         Header
       </header>
       <div className="opaque" style={{ width: "100vh", height: "100vh" }}>
-       <Map googleMapURL={mapConfig.url} loadingElement={mapConfig.elem} containerElement={mapConfig.elem} mapElement={mapConfig.elem} > 
-        <div className="opaque" style={{width: "100%", height:"100%"}}>
-        </div>
+       <Map googleMapURL={mapConfig.url} loadingElement={mapConfig.elem} containerElement={mapConfig.elem} mapElement={mapConfig.elem} >   
        </Map>  
      </div>
     </div>
