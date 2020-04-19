@@ -1,4 +1,7 @@
 import  React, { useState, useEffect} from 'react';
+import Navbar from '../Navbar.js'
+import AppName from '../AppName.js'
+import AuthItems from '../AuthItems.js'
 import './App.css';
 import db from '../../db';
 import {
@@ -23,7 +26,12 @@ function App() {
   return (
     <div className="App">
       <header>
-        Header
+        <Navbar>
+         
+          <AppName/>
+          <AuthItems/>
+          
+        </Navbar>
       </header>
       <div className="opaque" style={{ width: "100vh", height: "100vh" }}>
        <Map googleMapURL={mapConfig.url} loadingElement={mapConfig.elem} containerElement={mapConfig.elem} mapElement={mapConfig.elem} >   
