@@ -4,7 +4,7 @@ import LoginSignup from './LoginSignup'
 
 export default function AuthItems(props){
 
-    return props.user ? <UserHome/> : <LoginSignup/>
+    return true ? <UserHome/> : <LoginSignup/>
     
 }
 

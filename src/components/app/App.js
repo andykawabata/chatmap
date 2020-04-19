@@ -27,10 +27,8 @@ function App() {
     <div className="App">
       <header>
         <Navbar>
-         
           <AppName/>
           <AuthItems/>
-          
         </Navbar>
       </header>
       <div className="map-wrapper" >
