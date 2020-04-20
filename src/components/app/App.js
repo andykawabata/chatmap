@@ -2,8 +2,11 @@ import  React, { useState, useEffect} from 'react';
 import Navbar from '../Navbar.js'
 import AppName from '../AppName.js'
 import AuthItems from '../AuthItems.js'
+import LoginRegForm from '../LoginRegForm'
 import './App.css';
 import db from '../../db';
+import 'react-responsive-modal/styles.css';
+import { Modal } from 'react-responsive-modal';
 import {
   withScriptjs,
   withGoogleMap,
@@ -12,6 +15,8 @@ import {
 } from "react-google-maps";
 
 function App() {
+
+  const [loginOpen, setLoginOpen] = useState(false);
 
   const mapConfig = {url:"https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyD4ENwzE6a-iclgUJ10bwegFfuUsUa69cE",
   elem: <div style={{ height: `100%` }} />}
@@ -29,12 +34,18 @@ function App() {
         <Navbar>
           <AppName/>
           <AuthItems/>
+          <button onClick={()=>setLoginOpen(true)}>Open modal</button>
         </Navbar>
       </header>
       <div className="map-wrapper" >
        <Map googleMapURL={mapConfig.url} loadingElement={mapConfig.elem} containerElement={mapConfig.elem} mapElement={mapConfig.elem} >   
        </Map>  
      </div>
+
+     <Modal open={loginOpen} onClose={() => setLoginOpen(false)}>
+       <LoginRegForm/>
+     </Modal>
+
     </div>
   );
 }
