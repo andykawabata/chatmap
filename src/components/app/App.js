@@ -14,11 +14,12 @@ import {
   Marker,
 } from "react-google-maps";
 
+
 function App() {
 
   const [loginOpen, setLoginOpen] = useState(false);
 
-  const mapConfig = {url:"https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyD4ENwzE6a-iclgUJ10bwegFfuUsUa69cE",
+  const mapConfig = {url:"https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key="+ process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   elem: <div style={{ height: `100%` }} />}
 
   const Map = withScriptjs(withGoogleMap(props => 
@@ -41,7 +42,6 @@ function App() {
        <Map googleMapURL={mapConfig.url} loadingElement={mapConfig.elem} containerElement={mapConfig.elem} mapElement={mapConfig.elem} >   
        </Map>  
      </div>
-
      <Modal open={loginOpen} onClose={() => setLoginOpen(false)}>
        <LoginRegForm/>
      </Modal>
