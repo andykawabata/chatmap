@@ -12,6 +12,7 @@
 /build
 
 # misc
+testingfile.txt
 .DS_Store
 .env.local
 ./.env.development
