@@ -4,7 +4,11 @@ import LoginSignup from './LoginSignup'
 
 export default function AuthItems(props){
 
-    return false ? <UserHome/> : <LoginSignup setLoginOpen ={props.setLoginOpen}/>
-    
+    if(props.loadingUser){
+        return <div></div>
+    }
+    else{
+        return props.user ? <UserHome user={props.user} setUser={props.setUser} /> : <LoginSignup setLoginOpen={props.setLoginOpen} />
+    }
 }
 
