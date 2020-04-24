@@ -37,7 +37,7 @@ function App() {
       <header>
         <Navbar>
           <AppName/>
-          <AuthItems/>
+          <AuthItems setLoginOpen={setLoginOpen}/>
         </Navbar>
       </header>
       <div className="map-wrapper" >
@@ -45,8 +45,8 @@ function App() {
         {/*<InfoWindowWithComments/>*/}
        </Map>  
      </div>
-     <Modal open={loginOpen} onClose={() => setLoginOpen(false)}>
-       <LoginRegForm/>
+     <Modal open={loginOpen.isOpen} onClose={() => setLoginOpen(false)}>
+       <LoginRegForm isLogin={loginOpen.isLogin}/>
      </Modal>
 
     </div>

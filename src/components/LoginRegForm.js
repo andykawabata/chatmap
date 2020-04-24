@@ -1,14 +1,17 @@
 import React from 'react'
 import './bootstrap-social.css'
 
-export default function LoginRegForm(){
+export default function LoginRegForm(props){
+
+    console.log(props.isLogin)
+
 
     return (<div class="container pr-4 pl-4">
                         
                
                  <ul id="tabs" class="nav nav-pills nav-fill justify-content-around" data-tabs="tabs">
-                    <li class="nav-item"><a class="nav-link active" href="#login" data-toggle="tab">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#register" data-toggle="tab">Register</a></li>
+                    <li class="nav-item"><a class={ props.isLogin ? "nav-link active" : "nav-link"} href="#login" data-toggle="tab">Login</a></li>
+                    <li class="nav-item"><a class={ !props.isLogin ? "nav-link active" : "nav-link"}  href="#register" data-toggle="tab">Register</a></li>
                 </ul>
                
                 <div class="row" id="parent">
@@ -17,7 +20,7 @@ export default function LoginRegForm(){
 
 
 
-                            <div class="tab-pane active"  id="login">
+                            <div class="tab-pane active" id="login">
                                 <div class="card-body">
                                     <h2 class="card-title text-center">Login</h2>
                                     <form role="form">
@@ -53,7 +56,7 @@ export default function LoginRegForm(){
 
 
 
-                            <div class="tab-pane "  id="register">
+                            <div class="tab-pane"  id="register">
                                 <div class="card-body">
                                     <h2 class="card-title text-center">Register</h2>
                                     <form role="form">
