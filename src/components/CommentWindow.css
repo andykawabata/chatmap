@@ -1,0 +1,65 @@
+
+.my-container{
+    
+    width: 800px;
+    max-width: 800px;
+}
+.my-row{
+    /*border: 3px solid red;*/
+}
+.my-col{
+    /*border: 3px dotted blue;*/
+}
+.comment-area{
+    height:420px;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+#fixedBox{
+    
+   
+}
+#commentContainer{
+    width: 600px;
+}
+p{
+    font-size: small;
+}
+
+img{
+    width:100%;
+}
+@media only screen and (max-width: 600px) {
+    img{
+        width: 75%;
+        
+    }
+    .my-container{
+    
+        width: 300px;
+        max-width: 900px;
+    }
+}
+.rule{
+    border-top: 3px solid black;
+}
+/* width */
+::-webkit-scrollbar {
+width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #555;
+}

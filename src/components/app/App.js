@@ -3,6 +3,7 @@ import Navbar from '../Navbar.js'
 import AppName from '../AppName.js'
 import AuthItems from '../AuthItems.js'
 import LoginRegForm from '../LoginRegForm'
+import CommentWindow from '../CommentWindow'
 import './App.css';
 import db from '../../db';
 import 'react-responsive-modal/styles.css';
@@ -12,7 +13,9 @@ import {
   withGoogleMap,
   GoogleMap,
   Marker,
+  InfoWindow,
 } from "react-google-maps";
+import InfoWindowWithComments from '../InfoWindowWithComments.js';
 
 
 function App() {
@@ -35,11 +38,11 @@ function App() {
         <Navbar>
           <AppName/>
           <AuthItems/>
-          <button onClick={()=>setLoginOpen(true)}>Open modal</button>
         </Navbar>
       </header>
       <div className="map-wrapper" >
        <Map googleMapURL={mapConfig.url} loadingElement={mapConfig.elem} containerElement={mapConfig.elem} mapElement={mapConfig.elem} >   
+        {/*<InfoWindowWithComments/>*/}
        </Map>  
      </div>
      <Modal open={loginOpen} onClose={() => setLoginOpen(false)}>
