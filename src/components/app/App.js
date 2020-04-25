@@ -1,4 +1,5 @@
 import  React, { useState, useEffect} from 'react';
+import Map from '../Map'
 import Navbar from '../Navbar.js'
 import AppName from '../AppName.js'
 import AuthItems from '../AuthItems.js'
@@ -16,7 +17,12 @@ import {
   InfoWindow,
 } from "react-google-maps";
 import InfoWindowWithComments from '../InfoWindowWithComments.js';
-
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch
+} from 'react-router-dom'
 
 function App() {
 
@@ -28,10 +34,6 @@ function App() {
     db.auth().onAuthStateChanged(user => authStateHandler(user))
     
   },[]);
-
- 
-
-
 
   const authStateHandler = (authUser) => {
     console.log(authUser)
@@ -73,8 +75,6 @@ function App() {
       
   }
 
-
-
   const getUserInfo = (uid) => {
     return db.firestore().collection("users").doc(uid).get()
           .then(doc => {
@@ -91,31 +91,52 @@ function App() {
   const mapConfig = {url:"https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key="+ process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   elem: <div style={{ height: `100%` }} />}
 
-  const Map = withScriptjs(withGoogleMap(props => 
-    <GoogleMap 
-      defaultZoom={15} 
-      defaultCenter={{ lat: 36.0681, lng: -79.809546}}
-    >{props.children}</GoogleMap>))
 
+  
   
 
   return (
-    <div className="App">
-      <header>
-        <Navbar>
-          <AppName/>
-          <AuthItems setLoginOpen={setLoginOpen} user={user} setUser={setUser} loadingUser={loadingUser}  />
-        </Navbar>
-      </header>
-      <div className="map-wrapper" >
-       <Map googleMapURL={mapConfig.url} loadingElement={mapConfig.elem} containerElement={mapConfig.elem} mapElement={mapConfig.elem} >   
-        {/*<InfoWindowWithComments/>*/}
-       </Map>  
-     </div>
-     <Modal open={loginOpen.isOpen} onClose={() => setLoginOpen({isOpen: false, isLogin: loginOpen.isLogin})}>
-       <LoginRegForm isLogin={loginOpen.isLogin} setLoginOpen={setLoginOpen}/>
-     </Modal>
+    <Router>
+    
+      <div className="App">
+        <header>
+          <Navbar>
+            <AppName/>
+            <AuthItems setLoginOpen={setLoginOpen} user={user} setUser={setUser} loadingUser={loadingUser}  />
+          </Navbar>
+        </header>
+        <div className="map-wrapper" >
 
+          <Router>
+            <Route path={'/:state/:city'} 
+                children={<Map/>}/>
+          </Router>
+  
+        {/*<Route path='/id' 
+               children={ <div>Hello</div> <Map googleMapURL={mapConfig.url} loadingElement={mapConfig.elem} containerElement={mapConfig.elem} mapElement={mapConfig.elem} >   
+                                    <InfoWindowWithComments/>
+                                  </Map> 
+                      }
+        />*/}
+      </div>
+      <Modal open={loginOpen.isOpen} onClose={() => setLoginOpen({isOpen: false, isLogin: loginOpen.isLogin})}>
+        <LoginRegForm isLogin={loginOpen.isLogin} setLoginOpen={setLoginOpen}/>
+      </Modal>
+
+      </div>
+    </Router>
+  );
+
+}
+
+function Child() {
+  // We can use the `useParams` hook here to access
+  // the dynamic pieces of the URL.
+  
+
+  return (
+    <div>
+      <h3>ID:</h3>
     </div>
   );
 }
