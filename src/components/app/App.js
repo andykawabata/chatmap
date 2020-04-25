@@ -20,7 +20,7 @@ import InfoWindowWithComments from '../InfoWindowWithComments.js';
 
 function App() {
 
-  const [loginOpen, setLoginOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState({isOpen: false, isLogin: false});
   const [user, setUser] = useState(null);
   const [loadingUser, setLoadingUser] = useState(true);
 
@@ -40,7 +40,7 @@ function App() {
       setUser(null);
       setLoadingUser(false)
     }
-    if(authUser.isAnonymous){
+    else if(authUser.isAnonymous){
       console.log("one")
       setUser({uid: "Anonymous", username: "Anonymous"})
       setLoadingUser(false);
@@ -112,7 +112,7 @@ function App() {
         {/*<InfoWindowWithComments/>*/}
        </Map>  
      </div>
-     <Modal open={loginOpen.isOpen} onClose={() => setLoginOpen(false)}>
+     <Modal open={loginOpen.isOpen} onClose={() => setLoginOpen({isOpen: false, isLogin: loginOpen.isLogin})}>
        <LoginRegForm isLogin={loginOpen.isLogin} setLoginOpen={setLoginOpen}/>
      </Modal>
 
