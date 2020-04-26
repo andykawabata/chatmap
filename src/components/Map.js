@@ -28,7 +28,7 @@ function Map(){
 
 
   useEffect(()=>{
-    fetch("https://maps.googleapis.com/maps/api/geocode/json?&address=" + city + "%20" + state + "&key=AIzaSyD4ENwzE6a-iclgUJ10bwegFfuUsUa69cE")
+    fetch("https://maps.googleapis.com/maps/api/geocode/json?&address=" + city + "%20" + state + "&key=" + process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
     .then(result => result.json())
     .then(json => {
 
@@ -48,8 +48,8 @@ function Map(){
   }
 
   return( coordinates && <MyMap lat={coordinates.lat} lng={coordinates.lng} googleMapURL={mapConfig.url} loadingElement={mapConfig.elem} containerElement={mapConfig.elem} mapElement={mapConfig.elem} >
-      
-      </MyMap>)
+                            
+                          </MyMap>)
 
 }
 
