@@ -104,7 +104,7 @@ function App() {
 
           <Router>
             <Route path={'/:state/:city'} 
-                children={<Map/>}/>
+                children={<Map user={user}/>}/>
           </Router>
   
         {/*<Route path='/id' 

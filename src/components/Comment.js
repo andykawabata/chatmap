@@ -1,7 +1,30 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
-export default function Comment(){
+export default function Comment(props){
 
+
+
+    
+   
+
+    function calculateElapsedTime(){
+        let seconds = Date.now()/1000 - props.comment.timestamp;
+       
+        
+        console.log(seconds)
+        if(seconds/60 < 1)
+            return Math.floor(seconds) +  ((seconds < 2) ? " Second Ago" : "Seconds Ago");
+        let minutes = seconds/60;
+        if(minutes/60 < 1)
+            return Math.floor(minutes) + ((minutes < 2) ? " Minute Ago" :" Minutes Ago");
+        let hours = minutes/60;
+        if(hours/24 < 1)
+            return Math.floor(hours) + ((hours < 2) ? " Hour Ago" :" Hours Ago");
+        let days = hours/24;
+        return Math.floor(days) + ((days < 2) ? " Day Ago" :" Days Ago");
+    }
+
+  
     return(
         <div className="row">
             <div className="col-2">
@@ -10,11 +33,11 @@ export default function Comment(){
             </div>
             <div className="col-10">
                 <p className="mb-2">
-                    <a className="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
-                    <span className="text-muted">&nbsp; 15 Minutes Ago</span>
+                    <a className="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>{props.comment.user.username}</strong></a>
+                    <span className="text-muted">&nbsp; {props.comment.timestamp ? calculateElapsedTime() : "noTimesmp"}</span>
             </p>
             <div className="clearfix"></div>
-                <p className="mb-1">Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining um.</p>
+                <p className="mb-1">{props.comment.text}</p>
                 <p className="">
                     <a className="float-right  mr-2 "> Reply</a>
             </p>
