@@ -8,7 +8,7 @@ console.log("Why, Hello!");
 
 const CITY = "Westerly";
 const STATE = "Rhode Island";
-const POI_NAME = "Airport";
+const POI_NAME = "EZ";
 const API_KEY = config.GOOGLE_API_KEY;
 
 let lat;
@@ -98,8 +98,13 @@ function checkInfo(){
 }
 
 function addPoiToDb(){
-  db.firestore().collection("states").doc(official_state).collection("cities").doc(official_locality).collection("pois").doc(official_poi_name)
-  .set({lat: lat, lng: lng, photo: photo, type: type, address: address})
+  db.firestore().collection("states").doc(official_state).collection("cities").doc(official_locality).collection("pois")
+  .add({name: official_poi_name,
+        lat: lat, 
+        lng: lng, 
+        photo: photo, 
+        type: type, 
+        address: address})
   .then(data=> {console.log("success!"); process.exit(1)})
   .catch(err=> console.log(err))
 }
