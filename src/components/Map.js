@@ -7,7 +7,7 @@ import {
   Marker,
   InfoWindow,
 } from "react-google-maps";
-import InfoWindowWithComments from './InfoWindowWithComments.js';
+import InfoWindowWithComments from './comments/InfoWindowWithComments';
 import { useParams } from 'react-router-dom';
 import Markers from './Markers.js'
 /*
@@ -28,8 +28,7 @@ function Map(props){
   const [pois, setPois] = useState(null);
   const [selectedMarker, setSelectedMarker] = useState({isSelected: false,
                                                         coordinates: null,
-                                                        name: null,
-                                                        comments: null})
+                                                        info: null})
 
 
   useEffect(()=>{
@@ -52,8 +51,9 @@ function Map(props){
     .then(querySnapshot => {
       querySnapshot.forEach(doc => {
         pois.push({name: doc.id,
-                   type: 'type',
-                   description: 'description',
+                   type: doc.data().type,
+                   address: doc.data().address,
+                   photo: doc.data().photo,
                    lat: parseFloat(doc.data().lat),
                    lng: parseFloat(doc.data().lng)})
                    

@@ -6,7 +6,11 @@ export default function CommentForm(props){
 
     function onSubmit(e){
         e.preventDefault();
-        props.addCommentToPoiAndSet(text);
+        if(props.user == null){
+            alert("login")
+        }
+        else
+            props.addCommentToPoiAndSet(text);
     }
 
 

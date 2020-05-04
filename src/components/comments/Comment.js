@@ -4,8 +4,6 @@ export default function Comment(props){
 
 
 
-    
-   
 
     function calculateElapsedTime(){
         let seconds = Date.now()/1000 - props.comment.timestamp;
@@ -24,14 +22,20 @@ export default function Comment(props){
         return Math.floor(days) + ((days < 2) ? " Day Ago" :" Days Ago");
     }
 
+    const imgContainerStyle = {
+        
+       
+    }
   
     return(
+        <React.Fragment>
         <div className="row">
-            <div className="col-2">
-                <img src="https://image.ibb.co/jw55Ex/def_face.jpg" className="img img-rounded img-fluid"/>
-                
+            <div className="col-1 pr-0">
+                <div style={imgContainerStyle}>
+                    <img src="https://image.ibb.co/jw55Ex/def_face.jpg" className="img img-rounded img-fluid"/>
+                </div>
             </div>
-            <div className="col-10">
+            <div className="col-11 p">
                 <p className="mb-2">
                     <a className="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>{props.comment.user.username}</strong></a>
                     <span className="text-muted">&nbsp; {props.comment.timestamp ? calculateElapsedTime() : "noTimesmp"}</span>
@@ -42,6 +46,10 @@ export default function Comment(props){
                     <a className="float-right  mr-2 "> Reply</a>
             </p>
             </div>
+            
         </div>
+        <hr style={{margin: '.4rem 0 .6rem 0'}}/>
+        </React.Fragment>
+        
     )
 }

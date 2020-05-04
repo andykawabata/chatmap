@@ -2,21 +2,12 @@ import  React, { useState, useEffect} from 'react';
 import Map from '../Map'
 import Navbar from '../Navbar.js'
 import AppName from '../AppName.js'
-import AuthItems from '../AuthItems.js'
-import LoginRegForm from '../LoginRegForm'
-import CommentWindow from '../CommentWindow'
+import AuthItems from '../auth/AuthItems.js'
+import LoginRegForm from '../auth/LoginRegForm'
 import './App.css';
 import db from '../../db';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
-import {
-  withScriptjs,
-  withGoogleMap,
-  GoogleMap,
-  Marker,
-  InfoWindow,
-} from "react-google-maps";
-import InfoWindowWithComments from '../InfoWindowWithComments.js';
 import {
   BrowserRouter as Router,
   Route,
@@ -85,11 +76,6 @@ function App() {
           })
   }
 
-
-
-  
-  
-
   return (
     <Router>
     
@@ -101,23 +87,14 @@ function App() {
           </Navbar>
         </header>
         <div className="map-wrapper" >
-
           <Router>
             <Route path={'/:state/:city'} 
                 children={<Map user={user}/>}/>
           </Router>
-  
-        {/*<Route path='/id' 
-               children={ <div>Hello</div> <Map googleMapURL={mapConfig.url} loadingElement={mapConfig.elem} containerElement={mapConfig.elem} mapElement={mapConfig.elem} >   
-                                    <InfoWindowWithComments/>
-                                  </Map> 
-                      }
-        />*/}
-      </div>
-      <Modal open={loginOpen.isOpen} onClose={() => setLoginOpen({isOpen: false, isLogin: loginOpen.isLogin})}>
-        <LoginRegForm isLogin={loginOpen.isLogin} setLoginOpen={setLoginOpen}/>
-      </Modal>
-
+        </div>
+        <Modal open={loginOpen.isOpen} onClose={() => setLoginOpen({isOpen: false, isLogin: loginOpen.isLogin})}>
+          <LoginRegForm isLogin={loginOpen.isLogin} setLoginOpen={setLoginOpen}/>
+        </Modal>
       </div>
     </Router>
   );

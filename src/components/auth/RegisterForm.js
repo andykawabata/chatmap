@@ -1,5 +1,5 @@
 import React,{ useState }from 'react'
-import db from '../db'
+import db from '../../db'
 import * as firebase from 'firebase';
 import ThirdPartyAuthButtons from './ThirdPartyAuthButtons'
 

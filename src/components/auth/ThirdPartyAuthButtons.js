@@ -1,6 +1,6 @@
 import React from 'react'
 import * as firebase from 'firebase'
-import db from '../db'
+import db from '../../db'
 
 export default function ThirdPartyAuthButtons(props){
 

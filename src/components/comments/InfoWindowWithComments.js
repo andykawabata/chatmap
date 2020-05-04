@@ -9,12 +9,11 @@ export default function InfoWindowWithComments(props){
     function handleClose(){
         props.setSelectedMarker({isSelected: false,
                                 coordinates: null,
-                                name: null,
-                                comments: null})
+                                info: null})
     }
     const lat = props.selectedMarker.coordinates.lat;
     const lng = props.selectedMarker.coordinates.lng;
-
+    
     return(
         <InfoWindow position={{ lat: lat, lng: lng}} options={{maxWidth: 'none'}} onCloseClick={handleClose}>
             <CommentWindow location = {props.location} poiInfo={props.selectedMarker.info} user={props.user} >

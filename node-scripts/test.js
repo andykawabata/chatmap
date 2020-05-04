@@ -6,9 +6,9 @@ const db = firebase.initializeApp(config.firebaseConfig);
 
 console.log("Why, Hello!");
 
-const CITY = "Greensboro";
-const STATE = "North Carolina";
-const POI_NAME = "jackson library"
+const CITY = "Westerly";
+const STATE = "Rhode Island";
+const POI_NAME = "Airport";
 const API_KEY = config.GOOGLE_API_KEY;
 
 let lat;
@@ -16,6 +16,10 @@ let lng;
 let official_state;
 let official_locality;
 let official_poi_name;
+let photo;
+let type;
+let address;
+
 
 let queryString = POI_NAME + " " + CITY + " " + STATE
 
@@ -23,7 +27,7 @@ let queryString = POI_NAME + " " + CITY + " " + STATE
 
 let url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=" 
             + queryString +
-          "&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key="
+          "&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry,type&key="
             + API_KEY;
 
 fetch(url)
@@ -35,6 +39,9 @@ fetch(url)
 function getPlaceNameandCoordinates(json){
     lat = json.candidates[0].geometry.location.lat.toString()
     lng = json.candidates[0].geometry.location.lng.toString()
+    photo = json.candidates[0].photos[0].photo_reference
+    type = json.candidates[0].types[0]
+    address = json.candidates[0].formatted_address
     official_poi_name = json.candidates[0].name
 
     let url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" 
@@ -92,7 +99,7 @@ function checkInfo(){
 
 function addPoiToDb(){
   db.firestore().collection("states").doc(official_state).collection("cities").doc(official_locality).collection("pois").doc(official_poi_name)
-  .set({lat: lat, lng: lng})
-  .then(data=> console.log("success!"))
+  .set({lat: lat, lng: lng, photo: photo, type: type, address: address})
+  .then(data=> {console.log("success!"); process.exit(1)})
   .catch(err=> console.log(err))
 }

@@ -7,8 +7,11 @@ export default function Markers(props){
     console.log("Markers")   
     function setMarker(poi){
         props.setSelectedMarker({isSelected: true,
-            coordinates: {lat: poi.lat, lng: poi.lng},
-             info: {name: poi.name, type: poi.type, description: poi.description}})
+                                coordinates: {lat: poi.lat, lng: poi.lng},
+                                info: {name: poi.name, 
+                                       type: poi.type, 
+                                       address: poi.address,
+                                       photo: poi.photo}})
 
     }
     

@@ -1,14 +1,11 @@
 import React,{ useState }from 'react'
-import db from '../db'
+import db from '../../db'
 import LoginForm from './LoginForm'
 import RegisterForm from './RegisterForm'
 import './bootstrap-social.css'
 
 
 export default function LoginRegForm(props){
-
-   
-    
 
 
     console.log(props.isLogin)
