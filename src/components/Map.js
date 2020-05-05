@@ -3,20 +3,19 @@ import db from '../db';
 import {
   withScriptjs,
   withGoogleMap,
-  GoogleMap,
+  //GoogleMap,
   Marker,
   InfoWindow,
 } from "react-google-maps";
 import InfoWindowWithComments from './comments/InfoWindowWithComments';
 import { useParams } from 'react-router-dom';
 import Markers from './Markers.js'
+import { GoogleMap, LoadScript } from '@react-google-maps/api'
 /*
 function Mapp(props){
 
 */
 
-const mapConfig = {url:"https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key="+ process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-  elem: <div style={{ height: `100%` }} />}
 
 
 
@@ -50,7 +49,8 @@ function Map(props){
     db.firestore().collection("states").doc(location.state).collection("cities").doc(location.city).collection("pois").get()
     .then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        pois.push({name: doc.id,
+        pois.push({id: doc.id,
+                   name: doc.data().name,
                    type: doc.data().type,
                    address: doc.data().address,
                    photo: doc.data().photo,
@@ -74,34 +74,36 @@ function Map(props){
   }
 
   
-  console.log("map")
-  return( coordinates && <MyMap 
-                            lat={coordinates.lat} 
-                            lng={coordinates.lng} 
-                            googleMapURL={mapConfig.url} 
-                            loadingElement={mapConfig.elem} 
-                            containerElement={mapConfig.elem} 
-                            mapElement={mapConfig.elem} 
-                          >
+  console.log(coordinates)
+  return( coordinates && 
+            <LoadScript
+                id="script-loader"
+                googleMapsApiKey="AIzaSyD4ENwzE6a-iclgUJ10bwegFfuUsUa69cE"
+              >
+              {console.log("map1")}
+              <GoogleMap
+                 id='example-map'
+                 center={{lat: coordinates.lat, lng: coordinates.lng}}
+                 zoom={10}
+                 mapContainerStyle={{
+                   width: '100%',
+                   height: '100%'
+                 }}
+              > 
+              {console.log("map2")}
 
-                            {pois && <Markers pois={pois} setSelectedMarker={setSelectedMarker} />}
-                            {(selectedMarker.isSelected === true) && <InfoWindowWithComments location={location} selectedMarker={selectedMarker} setSelectedMarker={setSelectedMarker} user={props.user} />}
-                          </MyMap>)
+               {pois && <Markers pois={pois} setSelectedMarker={setSelectedMarker} />}
+                {(selectedMarker.isSelected === true) && <InfoWindowWithComments location={location} selectedMarker={selectedMarker} setSelectedMarker={setSelectedMarker} user={props.user} />}
+                          
 
+         
+              </GoogleMap>
+            </LoadScript>
+  )         
 }
 
 
   
-const MyMap = withScriptjs(withGoogleMap(props => 
-  
-  <GoogleMap 
-    defaultZoom={15} 
-    defaultCenter={{ lat: props.lat, lng: props.lng}}
-  >
-    
-    {props.children}
-  </GoogleMap>
-))
 
     
 

@@ -22,18 +22,21 @@ export default function ThirdPartyAuthButtons(props){
         
         
         db.auth().signInWithPopup(provider).then(function(result) {
-           
             var token = result.credential.accessToken;
-            var user = result.user;
-            addUserToDB(user.uid);
+            var uid = result.user.uid
+            var photo = result.user.photoURL
+            var email = result.user.email
+            addUserToDB(uid, photo, email);
         })
         .catch(error => alert(error))
         
     }
 
-    const addUserToDB = (uid) => {
+    const addUserToDB = (uid, photo, email) => {
         db.firestore().collection("users").doc(uid).set({
-          username: "thirdpartyauth"
+          username: "thirdpartyauth",
+          photo: photo,
+          email: email
         })
       }
 

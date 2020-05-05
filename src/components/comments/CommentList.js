@@ -15,7 +15,8 @@ export default function CommentList(props){
 
             {props.comments &&
                 props.comments.map(comment => (
-                    <Comment key={comment.id} comment={comment}/>
+                
+                    <Comment key={comment.id} comment={comment} user={props.user} deleteComment={props.deleteComment} />
                 ))
 
             }

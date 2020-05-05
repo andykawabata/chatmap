@@ -1,6 +1,6 @@
 import  React, { useState, useEffect} from 'react';
 import db from '../db';
-import { Marker } from "react-google-maps";
+import { Marker } from "@react-google-maps/api";
 
 export default function Markers(props){
 
@@ -8,7 +8,8 @@ export default function Markers(props){
     function setMarker(poi){
         props.setSelectedMarker({isSelected: true,
                                 coordinates: {lat: poi.lat, lng: poi.lng},
-                                info: {name: poi.name, 
+                                info: {poiID: poi.id,
+                                       name: poi.name, 
                                        type: poi.type, 
                                        address: poi.address,
                                        photo: poi.photo}})

@@ -17,43 +17,62 @@ export default function CommentWindow(props){
         getAndSetComments(); 
     },[])
 
+
+    function deleteComment(commentID){
+        db.firestore().collection("comments").doc(commentID).delete().then(function() {
+            getAndSetComments();
+        }).catch(function(error) {
+            console.error("Error removing document: ", error);
+        });
+    }
+
     function getAndSetComments(){
         
         let currentComments = [];
-        db.firestore().collection("states").doc(props.location.state).collection("cities").doc(props.location.city).collection("pois").doc(props.poiInfo.name).collection("comments").orderBy("created").get()
+        db.firestore().collection("comments").where("poiID", "==", props.poiInfo.poiID).orderBy("created").get()
         .then(querySnapshot => {
             console.log(querySnapshot)
             querySnapshot.forEach(doc=>{
               currentComments.push({id: doc.id,
                                     text: doc.data().text,
-                                    user: {username: doc.data().user.username, uid: doc.data().user.uid},
+                                    user: {username: doc.data().username, uid: doc.data().uid, photo: doc.data().user_photo},
                                     timestamp: doc.data().created})
             })
            
             setComments(currentComments);
             setLoading(false);
         })
-        .catch(err => setLoading(false))
+        .catch(err => {setLoading(false); console.log(err)})
     }
 
-    function addCommentToPoiAndSet(text){// Add comment to STATE->CITY->POI in firestore, then set state in parent
+    function addCommentToDbAndSet(text){// Add comment to STATE->CITY->POI in firestore, then set state in parent
         let comText = text;
         let state = props.location.state;
         let city = props.location.city;
-        let user =props.user;
+        let poiID = props.poiInfo.poiID;
+        let uid = props.user.uid;
+        let username = props.user.username;
+        let userPhoto = props.user.photo;
         let timestamp = firebase.firestore.Timestamp.now().seconds;
 
-        db.firestore().collection("states").doc(state).collection("cities").doc(city)
-        .collection("pois").doc(props.poiInfo.name).collection("comments")
-        .add({text: comText, user: user, created: timestamp })
+        db.firestore().collection("comments")
+        .add({text: comText, 
+              uid: uid,
+              username: username,
+              user_photo: userPhoto,
+              poiID: poiID,
+              state: state,
+              city: city,
+              created: timestamp, })
         .then(docRef => {
             getAndSetComments();
-            addCommentToUser(text, docRef.id, timestamp);
         })
         .catch(err => console.log(err))
         
     }
-    function addCommentToUser(comText, comID, comTimestamp){//Add comment to USERS in firestore
+
+    
+    /*function addCommentToUser(comText, comID, comTimestamp){//Add comment to USERS in firestore
         let text = comText;
         let commentID = comID;
         let state = props.location.state;
@@ -67,11 +86,7 @@ export default function CommentWindow(props){
             console.log("success")
         })
         .catch(err => console.log(err))
-        
-
-
-
-    }
+    }*/
     
     
 
@@ -84,12 +99,12 @@ export default function CommentWindow(props){
                         <div className="row p-2 bg-light border-bottom ">
                             <h5 className=" ">Recent Comments</h5>
                         </div>
-                        <CommentList loading={loading} comments={comments}/>
+                        <CommentList loading={loading} comments={comments} user={props.user} deleteComment={deleteComment}/>
                     </div>
                 </div>
                 <div className="row my-row pt-2">
                     <div className="col my-col">
-                            <CommentForm addCommentToPoiAndSet={addCommentToPoiAndSet} user={props.user}/>
+                            <CommentForm addCommentToPoiAndSet={addCommentToDbAndSet} user={props.user}/>
                     </div>
                 </div>
             </div>)

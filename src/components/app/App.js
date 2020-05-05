@@ -35,18 +35,18 @@ function App() {
     }
     else if(authUser.isAnonymous){
       console.log("one")
-      setUser({uid: "Anonymous", username: "Anonymous"})
+      setUser({uid: "Anonymous", username: "Anonymous", photo: "https://avatars2.githubusercontent.com/u/16786985?s=400&u=9f2fe771bbc8bcfcc195fde83ca914b00a98da54&v=4", email: "Anonymous"})
       setLoadingUser(false);
     }
     else if(authUser.displayName){//if authenticated by google, set username as display name
       console.log("two")
-      setUser({uid: authUser.uid, username: authUser.displayName})
+      setUser({uid: authUser.uid, username: authUser.displayName, photo: authUser.photoURL})
       setLoadingUser(false);
     }
     else{//make sure user name has been set in database! if not, log out
       console.log("three")
       getUserInfo(authUser.uid)
-      .then(username => {setUser({uid: authUser.uid, username: username}); return username})
+      .then(data => {setUser({uid: authUser.uid, username: data.username, photo: data.photo}); return data.username})
       .then((username) => { 
         console.log(username)
         if(username){
@@ -70,7 +70,7 @@ function App() {
     return db.firestore().collection("users").doc(uid).get()
           .then(doc => {
             if(doc.exists)
-              return doc.data().username;
+              return doc.data();
             else
               return null;
           })
