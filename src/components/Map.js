@@ -93,14 +93,15 @@ function Map(props){
 
   
 const MyMap = withScriptjs(withGoogleMap(props => 
-  
+ 
   <GoogleMap 
     defaultZoom={15} 
     defaultCenter={{ lat: props.lat, lng: props.lng}}
   >
-    
+    {console.log("map1")}
     {props.children}
   </GoogleMap>
+
 ))
 
     
