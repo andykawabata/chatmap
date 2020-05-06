@@ -1,4 +1,4 @@
-import  React, { useState, useEffect} from 'react';
+import  React, { useState, useEffect, useRef} from 'react';
 import db from '../db';
 import {
   withScriptjs,
@@ -7,6 +7,7 @@ import {
   Marker,
   InfoWindow,
 } from "react-google-maps";
+import { GoogleMap, LoadScript } from '@react-google-maps/api'
 import InfoWindowWithComments from './comments/InfoWindowWithComments';
 import { useParams } from 'react-router-dom';
 import Markers from './Markers.js'
@@ -29,7 +30,8 @@ function Map(props){
   const [selectedMarker, setSelectedMarker] = useState({isSelected: false,
                                                         coordinates: null,
                                                         info: null})
-
+  const [position, setPosition] = useState(null);
+  const mapRef = useRef(null);
 
   useEffect(()=>{
     fetch("https://maps.googleapis.com/maps/api/geocode/json?&address=" + city + "%20" + state + "&key=" + process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
@@ -63,46 +65,62 @@ function Map(props){
     
   }
 
-
-
   function extractCoordinates(jsonResponse){
      const location =  jsonResponse.results[0].geometry.location;
      const lat = location.lat;
      const lng = location.lng;
      return [lat, lng];
+  }
+
+  function handleLoad(map){
+    mapRef.current = map;
+    console.log(mapRef.current)
+  }
+
+  function handleCenter(){
+    if (!mapRef.current) return;
+
+    const newPos = mapRef.current.getCenter().toJSON();
+    console.log(newPos.lat != position.lat || newPos.lng != position.lng)
+    if(newPos.lat != position.lat || newPos.lng != position.lng)
+      setPosition(newPos);
 
   }
 
   
   console.log("map")
-  return( coordinates && <MyMap 
-                            lat={coordinates.lat} 
-                            lng={coordinates.lng} 
-                            googleMapURL={mapConfig.url} 
-                            loadingElement={mapConfig.elem} 
-                            containerElement={mapConfig.elem} 
-                            mapElement={mapConfig.elem} 
-                          >
+  return( coordinates && 
 
-                            {pois && <Markers pois={pois} setSelectedMarker={setSelectedMarker} />}
-                            {(selectedMarker.isSelected === true) && <InfoWindowWithComments location={location} selectedMarker={selectedMarker} setSelectedMarker={setSelectedMarker} user={props.user} />}
-                          </MyMap>)
+
+    <div className="App">
+      <button className="" onClick={() => {someState ? setSomeState(false) : setSomeState(true)}}>Click</button>
+      <LoadScript
+        id="script-loader"
+        googleMapsApiKey="AIzaSyD4ENwzE6a-iclgUJ10bwegFfuUsUa69cE"
+      >
+        <GoogleMap
+          id='example-map'
+          onLoad={handleLoad}
+          //onDragEnd={handleCenter}
+          //onBoundsChanged={handleCenter}
+          onCenterChanged={handleCenter}
+          mapContainerStyle={{
+            height: '100%',
+            width: '100%'}}
+          center={position}
+          zoom={4}
+        >
+          {/*pois && <Markers pois={pois} setSelectedMarker={setSelectedMarker} />*/}
+          {/*(selectedMarker.isSelected === true) && <InfoWindowWithComments location={location} selectedMarker={selectedMarker} setSelectedMarker={setSelectedMarker} user={props.user} />*/}
+                        
+        </GoogleMap>
+      </LoadScript>
+    </div>
+                             )
 
 }
 
 
-  
-const MyMap = withScriptjs(withGoogleMap(props => 
- 
-  <GoogleMap 
-    defaultZoom={15} 
-    defaultCenter={{ lat: props.lat, lng: props.lng}}
-  >
-  
-    {props.children}
-  </GoogleMap>
-
-))
 
     
 
