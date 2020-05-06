@@ -95,6 +95,7 @@ function Map(props){
 const MyMap = withScriptjs(withGoogleMap(props => 
  
   <GoogleMap 
+    //onBoundsChanged={()=>{console.log("boundsChanged")}}
     defaultZoom={15} 
     defaultCenter={{ lat: props.lat, lng: props.lng}}
   >
