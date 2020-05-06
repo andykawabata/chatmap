@@ -4,13 +4,6 @@ import { GoogleMap, LoadScript} from '@react-google-maps/api'
 import InfoWindowWithComments from './comments/InfoWindowWithComments';
 import { useParams } from 'react-router-dom';
 import Markers from './Markers.js'
-/*
-function Mapp(props){
-
-*/
-
-
-
 
 function Map(props){
   
@@ -72,29 +65,22 @@ function Map(props){
 
   function handleCenter(){
     if (!mapRef.current) return;
-
     const newPos = mapRef.current.getCenter().toJSON();
     console.log(newPos.lat != position.lat || newPos.lng != position.lng)
     if(newPos.lat != position.lat || newPos.lng != position.lng)
       setPosition(newPos);
-
   }
 
-  
-  console.log("map")
   return( coordinates && 
-
 
     <div className="App">
       <LoadScript
         id="script-loader"
-        googleMapsApiKey="AIzaSyD4ENwzE6a-iclgUJ10bwegFfuUsUa69cE"
+        googleMapsApiKey={process.env.REACT_APP_FIREBASE_APIKEY}
       >
         <GoogleMap
           id='example-map'
           onLoad={handleLoad}
-          //onDragEnd={handleCenter}
-          //onBoundsChanged={handleCenter}
           onCenterChanged={handleCenter}
           mapContainerStyle={{
             height: '100%',
@@ -108,29 +94,7 @@ function Map(props){
         </GoogleMap>
       </LoadScript>
     </div>
-                             )
+)
 
 }
-
-
-<<<<<<< HEAD
-  
-const MyMap = withScriptjs(withGoogleMap(props => 
- 
-  <GoogleMap 
-    //onBoundsChanged={()=>{console.log("boundsChanged")}}
-    defaultZoom={15} 
-    defaultCenter={{ lat: props.lat, lng: props.lng}}
-  >
-    {console.log("map1")}
-    {props.children}
-  </GoogleMap>
-
-))
-=======
->>>>>>> bigif
-
-    
-
-
 export default Map;
