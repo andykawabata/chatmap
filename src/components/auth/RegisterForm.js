@@ -24,7 +24,8 @@ export default function RegisterForm(props){
 
     const addUserToDB = (uid) => {
         db.firestore().collection("users").doc(uid).set({
-          username: username
+          username: username,
+          photo: "https://pngimage.net/wp-content/uploads/2018/05/default-profile-pic-png-8.png"
         })
       }
 

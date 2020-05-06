@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {InfoWindow} from 'react-google-maps';
+import {InfoWindow} from '@react-google-maps/api';
 import CommentWindow from './CommentWindow';
 import Comment from './Comment'
 
