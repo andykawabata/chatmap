@@ -76,7 +76,7 @@ function Map(props){
     <div className="App">
       <LoadScript
         id="script-loader"
-        googleMapsApiKey={process.env.REACT_APP_FIREBASE_APIKEY}
+        googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
       >
         <GoogleMap
           id='example-map'
