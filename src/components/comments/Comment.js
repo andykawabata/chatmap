@@ -34,12 +34,12 @@ export default function Comment(props){
                 <p className="mb-2">
                     <a className="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>{props.comment.user.username}</strong></a>
                     <span className="text-muted">&nbsp; {calculateElapsedTime()}</span>
-            </p>
-            <div className="clearfix"></div>
-                <p className="mb-1">{props.comment.text}</p>
-                <div className="d-flex flex-row-reverse">
-                    <a className=" btn btn-link btn-sml"> Reply</a>
-                    { addDeleteButton && <a onClick={() => props.deleteComment(props.comment.id)}className="btn btn-link"> Delete</a>}
+                </p>
+                <div className="clearfix"></div>
+                <p className="mb-1 small-text">{props.comment.text}</p>
+                <div className="d-flex flex-row-reverse"> 
+                    <a className=" btn btn-link btn-sml p-0 small-text"> Reply</a>
+                    { addDeleteButton && <a onClick={() => props.deleteComment(props.comment.id)}className="btn btn-link p-0 small-text"> Delete</a>}
                 </div>
             </div>
             

@@ -15,6 +15,7 @@ function Map(props){
                                                         coordinates: null,
                                                         info: null})
   const [position, setPosition] = useState(null);
+  const [screenWidth, setScreenWidth] = useState();
   const mapRef = useRef(null);
 
   useEffect(()=>{

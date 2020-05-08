@@ -23,12 +23,22 @@
 #commentContainer{
     width: 600px;
 }
-p{
+.small-text{
     font-size: small;
 }
 
 img{
     width:100%;
+}
+@media only screen and (max-width: 1024px) {
+    
+    .comment-area{
+        height:270px;
+    }
+    .my-container{
+        width: 650px;
+        max-width: 650px;
+    }
 }
 @media only screen and (max-width: 600px) {
     img{

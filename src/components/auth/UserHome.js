@@ -6,18 +6,16 @@ export default function UserHome(props){
     const style ={ppStyle: 
                         {height: '25px',
                         width: '25px',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        paddingBottom: '100%'},
+                        },
                     
-                    image: {position:'absolute'}}
+                    image: {width:'100%',height: '100%', objectFit: 'cover', verticalAlign: 'unset'}}
     return (
         
             
                 <ul className="nav navbar-right">
                     <li className="nav-item d-flex align-items-center">
                         <div style={style.ppStyle} className="border">
-                            <img style={style.image} className="img img-responsive w-100" src={props.user.photo}/>
+                            <img style={style.image} className="" src={props.user.photo}/>
                         </div>
                     </li>
                     <li className="nav-item dropdown">
