@@ -18,36 +18,31 @@ html, body{
     display: flex;
     flex-direction: column;
 }
-.info-pic::before{
-    content:'';
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    background-image: url(https://lp-cms-production.imgix.net/2019-06/3cb45f6e59190e8213ce0a35394d0e11-nice.jpg?fit=crop&q=40&sharp=10&vib=20&auto=format&ixlib=react-8.6.4);
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat;
-    background-size: cover;
-    filter:blur(3px);
-    
-   
-}
+
 .info-pic{
     height: 20%;
     text-align: center;
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat;
-    background-size: cover;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border-bottom: 3px solid black;
+    /*border-bottom: 2px solid black;*/
+    position: relative;
+    overflow: hidden;
+
 }
 .info-pic img{
     max-height: 100%;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    width:auto;
+    -webkit-backdrop-filter: blur(0px);
+    backdrop-filter: blur(0px);
+    width: auto;
+}
+
+.background{
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    filter:blur(5px);
+    background-position: center;
+    background-size: cover;
 }
 .user-photo{
     width: 100%;

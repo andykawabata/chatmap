@@ -17,7 +17,7 @@ export default function InfoWindowWithComments(props){
     return(
         <InfoWindow position={{ lat: lat, lng: lng}} options={{maxWidth: 'none'}} onCloseClick={handleClose}>
             <CommentWindow location = {props.location} poiInfo={props.selectedMarker.info} user={props.user} >
-            </CommentWindow>
+            </CommentWindow >
         </InfoWindow>
     )
 }

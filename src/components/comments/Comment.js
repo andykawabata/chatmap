@@ -20,8 +20,8 @@ export default function Comment(props){
     
     
     const photo = props.comment.user.photo ? props.comment.user.photo : "https://image.ibb.co/jw55Ex/def_face.jpg"
-    
     const addDeleteButton = (props.user && props.comment.user.uid == props.user.uid  && props.user.uid !== "Anonymous") ? true : false 
+    
     return(
         <React.Fragment>
         <div className="row">

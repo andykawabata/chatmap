@@ -111,11 +111,17 @@ function Map(props){
           center={position}
           zoom={12}
         >
-          {pois && <Markers pois={pois} setSelectedMarker={setSelectedMarker} />}
-          {selectedAndScreenWide && <InfoWindowWithComments location={location} selectedMarker={selectedMarker} setSelectedMarker={setSelectedMarker} user={props.user} />}
-          <Modal styles={{overlay: overlayStyles, modal: modalStyles,}} open={selectedAndMobile} onClose={()=>setSelectedMarker({isSelected:false,coordinates:null,info:null})}>
-            <MobileCommentWindow/>
-          </Modal>  
+          {pois && 
+          <Markers pois={pois} setSelectedMarker={setSelectedMarker} />
+          }
+          {selectedAndScreenWide && 
+            <InfoWindowWithComments location={location} selectedMarker={selectedMarker} setSelectedMarker={setSelectedMarker} user={props.user} />
+          }
+          {selectedAndMobile &&
+            <Modal styles={{overlay: overlayStyles, modal: modalStyles,}} open={selectedAndMobile} onClose={()=>setSelectedMarker({isSelected:false,coordinates:null,info:null})}>
+              <MobileCommentWindow location={location} selectedMarker={selectedMarker} setSelectedMarker={setSelectedMarker} user={props.user}/>
+            </Modal>  
+          }
         </GoogleMap>
       </LoadScript>
     </div>

@@ -2,14 +2,32 @@ import React from 'react'
 
 export default function InfoSection(props){
 
+    function removeUnderScoreAndCapitalize(str){
+        if(!str.includes('_'))
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        let wordArray = str.split('_')
+        let newWord = "";
+        let space;
+        for(var i = 0; i < wordArray.length; i++){
+            space = (i == wordArray.length -1) ? "" : " "
+            console.log("i = " + i)
+            newWord +=  wordArray[i].charAt(0).toUpperCase() + wordArray[i].slice(1) + space
+        }
+        return newWord
+    }
+
+    const typeCapital = removeUnderScoreAndCapitalize(props.type);
+    const photoString ="https://maps.googleapis.com/maps/api/place/photo?photoreference="+ props.photo +  "&sensor=false&maxheight=500&maxwidth=500&key=" + process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+
     return(
         <React.Fragment>
             <div className="info-pic">
-                <img class="" src="https://lp-cms-production.imgix.net/2019-06/3cb45f6e59190e8213ce0a35394d0e11-nice.jpg?fit=crop&q=40&sharp=10&vib=20&auto=format&ixlib=react-8.6.4"/>
+                <div className="background" style={{backgroundImage: "url(" + photoString + ")"}}></div>
+                <img  src={photoString}/>
             </div>
             <div className="name-type">
-                <h6>Big Restaurant With Lots of Stuff</h6>
-                <span className="light-text"><i>Restaurant</i></span>
+                <h6>{props.name}</h6>
+                <span className="light-text"><i>{typeCapital}</i></span>
             </div>
             <div className="spacer">
                 <span>Recent Comments</span>
