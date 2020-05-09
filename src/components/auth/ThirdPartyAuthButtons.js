@@ -15,11 +15,14 @@ export default function ThirdPartyAuthButtons(props){
     }
 
     function authenticateAnonymous(){
-        firebase.auth().signInAnonymously().catch(function(error) { console.log(error)});
+        firebase.auth().signInAnonymously()
+        .then(()=>{
+            props.setLoginOpen({isLogin: props.fromLogin, isOpen: false})
+        })
+        .catch(function(error) { console.log(error)});
     }
 
     function thirdPartyAuth(provider){
-        
         
         db.auth().signInWithPopup(provider).then(function(result) {
             var token = result.credential.accessToken;
@@ -27,6 +30,7 @@ export default function ThirdPartyAuthButtons(props){
             var photo = result.user.photoURL
             var email = result.user.email
             addUserToDB(uid, photo, email);
+            props.setLoginOpen({isLogin: props.fromLogin, isOpen: false})
         })
         .catch(error => alert(error))
         

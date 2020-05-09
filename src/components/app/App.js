@@ -47,31 +47,16 @@ function App() {
       console.log("three")
       getUserInfo(authUser.uid)
       .then(data => {
-        if(data.username){
+        if(data && data.username){
           setUser({uid: authUser.uid, username: data.username, photo: data.photo}); 
-          return data.username;
-        }
-        else{
-          return null;
-        }
-      })
-      .then((username) => { 
-        console.log(username)
-        if(username){
-          console.log("SetUser: true")
           setLoadingUser(false);
         }
         else{
           setUser(null);
-          console.log("SetUser: null1")
           setLoadingUser(false);
         }
       })
-      
     }
-    
-    
-      
   }
 
   const getUserInfo = (uid) => {

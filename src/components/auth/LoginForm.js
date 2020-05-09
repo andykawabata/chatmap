@@ -51,7 +51,7 @@ export default function LoginForm(props){
                 <hr/>
                 
                     
-                <ThirdPartyAuthButtons/>
+                <ThirdPartyAuthButtons setLoginOpen={props.setLoginOpen}/>
             
                 
         </div>

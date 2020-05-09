@@ -64,7 +64,7 @@ export default function RegisterForm(props){
                     </div>
                 </div>
                 <hr/>
-                <ThirdPartyAuthButtons/>
+                <ThirdPartyAuthButtons setLoginOpen={props.setLoginOpen}/>
             </form>
         </div>
     )
