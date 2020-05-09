@@ -4,6 +4,9 @@ import { GoogleMap, LoadScript} from '@react-google-maps/api'
 import InfoWindowWithComments from './comments/InfoWindowWithComments';
 import { useParams } from 'react-router-dom';
 import Markers from './Markers.js'
+import { Modal } from 'react-responsive-modal';
+import 'react-responsive-modal/styles.css';
+import MobileCommentWindow from './mobileComments/MobileCommentWindow'
 
 function Map(props){
   
@@ -19,19 +22,23 @@ function Map(props){
   const mapRef = useRef(null);
 
   useEffect(()=>{
+    updatScreenWidth()
+    window.addEventListener("resize", updatScreenWidth);
     fetch("https://maps.googleapis.com/maps/api/geocode/json?&address=" + city + "%20" + state + "&key=" + process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
     .then(result => result.json())
     .then(json => {
-
       const latlng = extractCoordinates(json);
       const lat = latlng[0];
       const lng = latlng[1];
       setPosition({lat: lat, lng: lng})
       setCoordinates({lat: lat, lng: lng});
       getAndSetPois();
-
     })
   },[])
+
+  function updatScreenWidth(){
+    setScreenWidth(window.innerWidth)
+  }
 
   function getAndSetPois(){
     let pois=[];
@@ -45,11 +52,9 @@ function Map(props){
                    photo: doc.data().photo,
                    lat: parseFloat(doc.data().lat),
                    lng: parseFloat(doc.data().lng)})
-                   
         })
       setPois(pois);
     })
-    
   }
 
   function extractCoordinates(jsonResponse){
@@ -72,6 +77,23 @@ function Map(props){
       setPosition(newPos);
   }
 
+  const overlayStyles= {
+    padding: '0', 
+    margin: '0', 
+    width: '100%', 
+    height: '100%',
+    padding: '8px'
+  }
+  const modalStyles={
+    maxWidth:'none',
+    width: '100%', 
+    height: '100%',
+    padding: '0'
+  }
+
+  const selectedAndScreenWide = (selectedMarker.isSelected === true) && screenWidth >= 600 
+  const selectedAndMobile = (selectedMarker.isSelected === true) && screenWidth < 600 
+
   return( coordinates && 
 
     <div className="App">
@@ -89,9 +111,17 @@ function Map(props){
           center={position}
           zoom={12}
         >
-          {pois && <Markers pois={pois} setSelectedMarker={setSelectedMarker} />}
-          {(selectedMarker.isSelected === true) && <InfoWindowWithComments location={location} selectedMarker={selectedMarker} setSelectedMarker={setSelectedMarker} user={props.user} />}
-                        
+          {pois && 
+          <Markers pois={pois} setSelectedMarker={setSelectedMarker} />
+          }
+          {selectedAndScreenWide && 
+            <InfoWindowWithComments location={location} selectedMarker={selectedMarker} setSelectedMarker={setSelectedMarker} user={props.user} />
+          }
+          {selectedAndMobile &&
+            <Modal styles={{overlay: overlayStyles, modal: modalStyles,}} open={selectedAndMobile} onClose={()=>setSelectedMarker({isSelected:false,coordinates:null,info:null})}>
+              <MobileCommentWindow location={location} selectedMarker={selectedMarker} setSelectedMarker={setSelectedMarker} user={props.user}/>
+            </Modal>  
+          }
         </GoogleMap>
       </LoadScript>
     </div>
