@@ -65,7 +65,7 @@ export default function MobileCommentWindow(props){
        let comText = text;
        let state = props.location.state;
        let city = props.location.city;
-       let poiID = props.poiInfo.poiID;
+       let poiID = props.selectedMarker.info.poiID;
        let uid = props.user.uid;
        let username = props.user.username;
        let userPhoto = props.user.photo;

@@ -17,7 +17,7 @@ export default function CommentForm(props){
 
     return(
         <div className="comment-form">
-            <form className="d-flex bg-dark" onSubmit={onSubmit}>
+            <form className="d-flex" onSubmit={onSubmit}>
                 <div className="form-group m-1 flex-1">
                     <input className="form-control" type="text" onChange={(e)=>setText(e.target.value)} placeholder="Add a comment"/>
                 </div>

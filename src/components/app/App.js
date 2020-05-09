@@ -46,7 +46,15 @@ function App() {
     else{//make sure user name has been set in database! if not, log out
       console.log("three")
       getUserInfo(authUser.uid)
-      .then(data => {setUser({uid: authUser.uid, username: data.username, photo: data.photo}); return data.username})
+      .then(data => {
+        if(data.username){
+          setUser({uid: authUser.uid, username: data.username, photo: data.photo}); 
+          return data.username;
+        }
+        else{
+          return null;
+        }
+      })
       .then((username) => { 
         console.log(username)
         if(username){

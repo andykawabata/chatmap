@@ -50,7 +50,7 @@ const addDeleteButton = (props.user && props.comment.user.uid == props.user.uid 
                     <div className="comment-footer">
                         <div className="footer-items">
                             {addDeleteButton && 
-                            <a onClick={() => props.deleteComment(props.comment.id)} className="footer-item"> Delete</a>
+                            <a href="#" onClick={() => props.deleteComment(props.comment.id)} className="footer-item"> Delete</a>
                             }
                             <a href="#" className="footer-item">Reply</a>
                         </div>
