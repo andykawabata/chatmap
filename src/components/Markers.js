@@ -4,7 +4,6 @@ import { Marker } from "@react-google-maps/api";
 
 export default function Markers(props){
 
-    console.log("Markers")   
     function setMarker(poi){
         props.setSelectedMarker({isSelected: true,
                                 coordinates: {lat: poi.lat, lng: poi.lng},
@@ -22,8 +21,6 @@ export default function Markers(props){
                     key={poi.name} 
                     position={{lat: poi.lat, lng: poi.lng}} 
                     onClick={() =>setMarker(poi)}
-                   
-                    
                     />
            </div>
         

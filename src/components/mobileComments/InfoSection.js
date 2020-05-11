@@ -10,7 +10,6 @@ export default function InfoSection(props){
         let space;
         for(var i = 0; i < wordArray.length; i++){
             space = (i == wordArray.length -1) ? "" : " "
-            console.log("i = " + i)
             newWord +=  wordArray[i].charAt(0).toUpperCase() + wordArray[i].slice(1) + space
         }
         return newWord

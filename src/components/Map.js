@@ -44,6 +44,7 @@ function Map(props){
     let pois=[];
     db.firestore().collection("states").doc(location.state).collection("cities").doc(location.city).collection("pois").get()
     .then(querySnapshot => {
+      console.log("qsnapshot: " + querySnapshot)
       querySnapshot.forEach(doc => {
         pois.push({id: doc.id,
                    name: doc.data().name,
@@ -55,8 +56,8 @@ function Map(props){
         })
       setPois(pois);
     })
-  }
 
+  }
   function extractCoordinates(jsonResponse){
      const location =  jsonResponse.results[0].geometry.location;
      const lat = location.lat;
@@ -66,13 +67,11 @@ function Map(props){
 
   function handleLoad(map){
     mapRef.current = map;
-    console.log(mapRef.current)
   }
 
   function handleCenter(){
     if (!mapRef.current) return;
     const newPos = mapRef.current.getCenter().toJSON();
-    console.log(newPos.lat != position.lat || newPos.lng != position.lng)
     if(newPos.lat != position.lat || newPos.lng != position.lng)
       setPosition(newPos);
   }
