@@ -46,18 +46,20 @@ export default function ThirdPartyAuthButtons(props){
 
     return(
         <div>
+            <button class="btn btn-block btn-dark text-uppercase" onClick={authenticateAnonymous}>
+                <i class="fa fa-user-secret" aria-hidden="true"></i> 
+                Sign in Anonymously
+            </button>
             <button class="btn btn-google btn-block text-uppercase" onClick={authenticateWithGoogle}>
                 <i class="fab fa-google mr-2"></i> 
                 Sign in with Google
             </button>
+            {/*
             <button class="btn btn-facebook btn-block text-uppercase" onClick={authenticateWithFacebook}>
                 <i class="fab fa-facebook-f mr-2"></i> 
                 Sign in with Facebook
             </button>
-            <button class="btn btn-block btn-secondary text-uppercase" onClick={authenticateAnonymous}>
-                <i class="fa fa-user-secret" aria-hidden="true"></i> 
-                Sign in Anonymously
-            </button>
+            */}
         </div>
     )
 }

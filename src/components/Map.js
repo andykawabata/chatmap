@@ -7,6 +7,7 @@ import Markers from './Markers.js'
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
 import MobileCommentWindow from './mobileComments/MobileCommentWindow'
+import mapStyles from './mapStyles'
 
 function Map(props){
   
@@ -93,6 +94,9 @@ function Map(props){
   const selectedAndScreenWide = (selectedMarker.isSelected === true) && screenWidth >= 600 
   const selectedAndMobile = (selectedMarker.isSelected === true) && screenWidth < 600 
 
+  
+  
+
   return( coordinates && 
 
     <div className="App">
@@ -108,7 +112,12 @@ function Map(props){
             height: '100%',
             width: '100%'}}
           center={position}
-          zoom={12}
+          zoom={14}
+          options={{
+            styles: mapStyles,
+            mapTypeControl: false
+
+          }}
         >
           {pois && 
           <Markers pois={pois} setSelectedMarker={setSelectedMarker} />

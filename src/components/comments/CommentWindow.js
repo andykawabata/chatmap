@@ -29,7 +29,7 @@ export default function CommentWindow(props){
     function getAndSetComments(){
         
         let currentComments = [];
-        db.firestore().collection("comments").where("poiID", "==", props.poiInfo.poiID).orderBy("created").get()
+        db.firestore().collection("comments").where("poiID", "==", props.poiInfo.poiID).orderBy("created", "desc").get()
         .then(querySnapshot => {
             console.log(querySnapshot)
             querySnapshot.forEach(doc=>{

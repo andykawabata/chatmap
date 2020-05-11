@@ -45,7 +45,7 @@ export default function MobileCommentWindow(props){
    function getAndSetComments(){
        
        let currentComments = [];
-       db.firestore().collection("comments").where("poiID", "==", props.selectedMarker.info.poiID).orderBy("created").get()
+       db.firestore().collection("comments").where("poiID", "==", props.selectedMarker.info.poiID).orderBy("created", "desc").get()
        .then(querySnapshot => {
            querySnapshot.forEach(doc=>{
              currentComments.push({id: doc.id,
