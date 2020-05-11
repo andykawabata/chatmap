@@ -1,6 +1,6 @@
 .App .map-wrapper{
     opacity: 1;
-    flex-grow: 1;
+    flex: 1;
 }
 
 .App{
