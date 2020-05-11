@@ -13,19 +13,19 @@ export default function Markers(props){
                                        type: poi.type, 
                                        address: poi.address,
                                        photo: poi.photo}})
-
     }
     
     return(
         props.pois.map(poi => (
-
-            <Marker key={poi.name} 
+            <div className="bigClass">
+            <Marker 
+                    key={poi.name} 
                     position={{lat: poi.lat, lng: poi.lng}} 
                     onClick={() =>setMarker(poi)}
                 
                     
                     />
-           
+           </div>
         
          
      )
