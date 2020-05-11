@@ -22,7 +22,7 @@ export default function Markers(props){
                     key={poi.name} 
                     position={{lat: poi.lat, lng: poi.lng}} 
                     onClick={() =>setMarker(poi)}
-                
+                   
                     
                     />
            </div>
